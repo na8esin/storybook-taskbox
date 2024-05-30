@@ -96,3 +96,8 @@ If you encounter an issue with the template, we encourage you to open an issue i
 ## prettier
 
 `yarn add --dev --exact prettier`
+
+手動の場合
+`yarn prettier . --write`
+
+vscodeでautosaveにしている場合も⌘+sを押す必要がある。autosave自体は何も押さなくてもされる。
