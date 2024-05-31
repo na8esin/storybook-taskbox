@@ -101,3 +101,22 @@ If you encounter an issue with the template, we encourage you to open an issue i
 `yarn prettier . --write`
 
 vscodeでautosaveにしている場合も⌘+sを押す必要がある。autosave自体は何も押さなくてもされる。
+
+## npx storybook@latest upgrade
+$ npx storybook@latest upgrade
+SB_CLI_UPGRADE_0004 (UpgradeStorybookToSameVersionError): You are trying to upgrade Storybook to the same version that is currently installed in the project, version 8.1.5. This is not supported.
+
+This usually happens when running the upgrade command without a version specifier, e.g. "npx storybook upgrade".
+This will cause npm to run the globally cached storybook binary, which might be the same version that you already have.
+This also happens if you're running the Storybook CLI that is locally installed in your project.
+
+If you intended to upgrade to the latest version, you should always run the Storybook CLI with a version specifier to force npm to download the latest version:
+
+"npx storybook@latest upgrade"
+
+If you intended to re-run automigrations, you should run the "automigrate" command directly instead:
+
+"npx storybook automigrate"
+    at doUpgrade (/Users/t-watanabe/.npm/_npx/bc7e1e37fcb46ffc/node_modules/@storybook/cli/dist/generate.js:643:2088)
+    at async withTelemetry (/Users/t-watanabe/.npm/_npx/bc7e1e37fcb46ffc/node_modules/@storybook/core-server/dist/index.js:28:3599)
+    at async upgrade (/Users/t-watanabe/.npm/_npx/bc7e1e37fcb46ffc/node_modules/@storybook/cli/dist/generate.js:650:2097)
