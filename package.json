@@ -49,7 +49,7 @@
     "msw-storybook-addon": "^2.0.2",
     "prettier": "3.2.5",
     "prop-types": "^15.8.1",
-    "storybook": "^8.1.4",
+    "storybook": "^8.1.5",
     "vite": "^5.2.0"
   },
   "resolutions": {
