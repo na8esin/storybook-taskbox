@@ -46,7 +46,7 @@ const Mockstore = ({ taskboxState, children }) => (
   </Provider>
 );
 
-// MockedStateがexportされてるからexcludeStoriesしないと、storyとみなされるっぽい
+// MockedStateがexportされてるからexcludeStoriesしないと、storyとみなされる
 export default {
   component: TaskList,
   title: 'TaskList',
