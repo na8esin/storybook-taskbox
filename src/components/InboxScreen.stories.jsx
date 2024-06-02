@@ -28,6 +28,8 @@ export const Default = {
  },
 };
 
+// Docsの表示がおかしい
+// mswの設定が後勝ちになっていて、Defaultも影響を受けている気がする
 export const Error = {
  parameters: {
    msw: {
