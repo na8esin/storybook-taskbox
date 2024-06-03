@@ -13,6 +13,7 @@ export default function InboxScreen() {
   const { error } = useSelector((state) => state.taskbox);
   // The useEffect triggers the data fetching when the component is mounted
   useEffect(() => {
+    // fetchTasks()自体が、モック化できるなどすれば、もっと簡単な気がする
     dispatch(fetchTasks());
   }, []);
 
