@@ -128,3 +128,8 @@ If you intended to re-run automigrations, you should run the "automigrate" comma
 [MSW] Found a redundant usage of query parameters in the request handler URL for "GET https://jsonplaceholder.typicode.com/todos?userId=1". Please match against a path instead and access query parameters using "new URL(request.url).searchParams" instead. Learn more: https://mswjs.io/docs/recipes/query-parameters
 ```
 今回のパターンだと、ただコードが長くなるだけではある。。。
+
+## yarn playwright install
+がないと、test-storybook が実行できない
+
+Chromiumとか、FFMPEGとかダウンロードされる
