@@ -24,15 +24,28 @@ export default {
 
 export const Default = {
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
-  parameters: {
-    msw: {
-      handlers: [
-        http.get("https://jsonplaceholder.typicode.com/todos?userId=1", () => {
-          return HttpResponse.json(MockedState.tasks);
-        }),
-      ],
-    },
+  args: {
+    userId: 1,
   },
+  // parameters: {
+  //   msw: {
+  //     handlers: [
+  //       http.get(
+  //         "https://jsonplaceholder.typicode.com/todos",
+  //         ({ request }) => {
+  //           const url = new URL(request.url);
+  //           if (url.searchParams.get("userId") !== "1") {
+  //             return new HttpResponse(null, {
+  //               status: 403,
+  //             });
+  //           } else {
+  //             return HttpResponse.json(MockedState.tasks);
+  //           }
+  //         },
+  //       ),
+  //     ],
+  //   },
+  // },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     // Waits for the component to transition from the loading state
@@ -64,22 +77,6 @@ const Mockstore = ({ taskboxState, children }) => (
   </Provider>
 );
 
-// Docsの表示がおかしい
-// mswの設定が後勝ちになっていて、Defaultも影響を受けている気がする
-// export const Error = {
-//   parameters: {
-//     msw: {
-//       handlers: [
-//         http.get("https://jsonplaceholder.typicode.com/todos?userId=1", () => {
-//           return new HttpResponse(null, {
-//             status: 403,
-//           });
-//         }),
-//       ],
-//     },
-//   },
-// };
-
 // 下記のようにやれば、Docsでもちゃんとエラーの表示になる
 const ErrorMockedState = {
   tasks: [],
@@ -87,7 +84,40 @@ const ErrorMockedState = {
   error: "error",
 };
 export const Error = {
+  args: {
+    userId: 1,
+  },
   decorators: [
     (story) => <Mockstore taskboxState={ErrorMockedState}>{story()}</Mockstore>,
   ],
+};
+
+// Docsの表示がおかしい
+// mswの設定が後勝ちになっていて、Defaultも影響を受けている気がする
+// userIdの値で分岐しても結果は一緒
+export const Error2 = {
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  args: {
+    userId: 9999,
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(
+          "https://jsonplaceholder.typicode.com/todos",
+          ({ request }) => {
+            const url = new URL(request.url);
+            console.log(`userId=${url.searchParams.get("userId")}`);
+            if (url.searchParams.get("userId") !== 1) {
+              return new HttpResponse(null, {
+                status: 403,
+              });
+            } else {
+              return HttpResponse.json(MockedState.tasks);
+            }
+          },
+        ),
+      ],
+    },
+  },
 };

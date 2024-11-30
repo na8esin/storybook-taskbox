@@ -1,21 +1,20 @@
+import { useEffect } from "react";
 
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasks } from "../lib/store";
 
-import { fetchTasks } from '../lib/store';
+import TaskList from "./TaskList";
 
-import TaskList from './TaskList';
-
-export default function InboxScreen() {
+export default function InboxScreen({ userId }) {
   const dispatch = useDispatch();
   // We're retrieving the error field from our updated store
   const { error } = useSelector((state) => state.taskbox);
   // The useEffect triggers the data fetching when the component is mounted
   useEffect(() => {
     // fetchTasks()自体が、モック化できるなどすれば、もっと簡単な気がする
-    dispatch(fetchTasks());
-  }, []);
+    dispatch(fetchTasks(userId));
+  }, [dispatch, userId]);
 
   if (error) {
     return (
